@@ -1,0 +1,28 @@
+Pseudocode for WindPower use:
+
+if (keyPower == down) && (powerCurrent > powerMinimum){		//Minimum power would be ~10% of Tier1 MaxPower. MaxPower increases with Tier?
+	int waypointCount = 0;
+	powerTemp = powerCurrent;				//Holds original power value for later
+	do {
+		every X ticks or Y disance, create waypoint 	//Invisible points or floating, glowing game object
+								//Not every tick (probably would lag the game creating splines)
+		powerTemp -= (powerMinimum/2); 			//Minimum of two points able to be created
+		waypointCount += 1;
+		UpdatePowerMeterDisplay();			//Could be a UI feature or the artifact glowing
+		powerEnd = true;
+	} while ((keyPower == down) && (powerTemp  >= 0))
+}
+if (powerEnd == true) && (waypointCount < 2){			//If player misclicked and only made one point, all power cost is refunded
+	Remove Waypoints					//Gameobjects and waypointCount
+	powerTemp = powerCurrent;
+	powerEnd == false;
+}
+else if (powerEnd == true){
+	Create spline through waypoints				
+	Remove Waypoints
+	Create Gust gameobject from spline					
+	powerCurrent = powerTemp;
+	powerEnd == false;
+}	
+
+
